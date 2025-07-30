@@ -1,4 +1,5 @@
 import modelo from "../model/usuarios.model.js"
+import middleware from "../middleware/tratamentoPadrao.js"
 
 const validarNome = (nome) => {
     const regex = /^[A-Za-zÀ-ÿ\s]+$/ 
@@ -28,18 +29,17 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
         if (validarMatricula(matricula) == false){
             console,log('Erro: Matricula não aceita letras ou nomes')}
 
-        const aluno = modelo.criarAluno(nome,email,senha,matricula)
+        const aluno = await modelo.criarAluno(nome,email,senha,matricula)
         return aluno
     }
      catch (error) {
-        console.log('Erro no service de usuarios')
-        console.log(error)
+        middleware.erroServices(error)
     }
     
 
 }
 
-const criarProfessorS = (nome,email,senha) => {
+const criarProfessorS = async (nome,email,senha) => {
 
     try {
 
@@ -52,23 +52,52 @@ const criarProfessorS = (nome,email,senha) => {
         if(validarEmail(email) == false){
         console.log('Erro: Email invalido!') }
 
-        const professor = modelo.criarProfessor(nome,email,senha)
+        const professor = await modelo.criarProfessor(nome,email,senha)
         return professor
     
 } 
     catch (error) {
-        console.log('Erro no service de usuarios')
-        console.log(error)
+        middleware.erroServices(error)
     }
     
 }
 
-const criarDisciplinaS = (nome,cargaHoraria) => {
-
-    if (!nome || !cargaHoraria){
+const criarDisciplinaS = async (nome,cargaHoraria) => {
+    try {
+        if (!nome || !cargaHoraria){
         console.log('Dados incompletos!') }
 
-    if(validarNome(nome) == false) {
-        console.log('Nome invalido')
-    }    
+        if(validarNome(nome) == false) {
+        console.log('Nome invalido') }  
+
+        const disciplina = await modelo.criarDisciplina(nome,cargaHoraria)
+        return disciplina
+    } 
+    catch (error) {
+        middleware.erroServices(error)
+    }
+      
 }
+
+const criarTurmaS = async (nome, codigoTurma, semestre) => {
+    try {
+        if (!nome || !codigoTurma || !semestre){
+        console.log('Dados incompletos!')
+        }
+        if (validarNome(nome) == false){
+            console.log('Nome invalido!')
+        }
+        if (validarMatricula(codigoTurma) == false){
+            console.log('Entrada invalida, so é permitido a entrada de números')
+        }
+        
+        const turma = await modelo.criarTurma(nome,codigoTurma,semestre)
+        return turma
+    } 
+    catch (error) {
+        middleware.erroServices(error)
+    }
+    
+}
+
+export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS}
