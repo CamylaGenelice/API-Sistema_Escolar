@@ -11,9 +11,12 @@ const pg = new Client({
     password: process.env.PASSWORD,
 
 })
-
-pg.on("connect", (client) => {
-    console.log("Conexão estabelecida com o banco de dados! ")
-})
+pg.connect()
+    .then(() => {
+        console.log("✅ Conexão estabelecida com o banco de dados!");
+    })
+    .catch((err) => {
+        console.error("❌ Erro ao conectar ao banco de dados:", err.message);
+    });
 
 export default pg

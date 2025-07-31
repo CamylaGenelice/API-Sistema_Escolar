@@ -27,7 +27,7 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
             console.log('Erro: Email invalido!')}
 
         if (validarMatricula(matricula) == false){
-            console,log('Erro: Matricula não aceita letras ou nomes')}
+            console.log('Erro: Matricula não aceita letras ou nomes')}
 
         const aluno = await modelo.criarAluno(nome,email,senha,matricula)
         return aluno
@@ -100,4 +100,4 @@ const criarTurmaS = async (nome, codigoTurma, semestre) => {
     
 }
 
-export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS}
+export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome}
