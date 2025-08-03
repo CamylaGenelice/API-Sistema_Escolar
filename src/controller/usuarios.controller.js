@@ -2,17 +2,15 @@ import services from "../services/usuarios.services.js";
 import middleware from "../middleware/tratamentoPadrao.js"
 
 
-const requisicaoCriarAluno = async (req,res) => {
+const requisicaoCriarAluno = async (req,res,next) => {
     try {
         const {nome, email, senha, matricula} = req.body
 
         if (!nome || !email || !senha || !matricula){
-            return res.status(202).json({msg:"Dados incompletos!"})
+            return res.status(400).json({msg: " Dados Incompletos"})
         }
-        const consulta = await services.criarAlunoS(nome,email,senha,matricula)
-
        if (services.validarMatricula(matricula) == false){
-        return res.status(400).json({msg: "Matricula não aceita letras ou nomes"})
+        return res.status(400).json({msg: "Matricula so aceita números positivos inteiros"})
        }
        if (services.validarEmail(email) == false ){
         return res.status(400).json({msg: "Email invalido"})
@@ -20,12 +18,15 @@ const requisicaoCriarAluno = async (req,res) => {
        if (services.validarNome(nome) == false){
         return res.status(400).json({msg: "Nome invalido"})
        }
+
+        const consulta = await services.criarAlunoS(nome,email,senha,matricula)
         return res.status(200).json({
             mgs: "Aluno cadastrado com sucesso!"
         })
     } 
     catch (error) {
-        middleware.erroController(error)
+       console.log(error) 
+       return res.status(500).json({msg: "Erro interno"})
     }
 }
 
@@ -34,9 +35,15 @@ const requisicaoCriarProfessor = async (req, res) => {
         const {nome,email,senha} = req.body
 
         if (!nome || !email || !senha){
-            return res.status(202).json({msg:"Dados incompletos!"})
-            middleware.dadosIncompletos()
+            return res.status(400).json({msg:"Dados incompletos!"})
+            
         }
+        if (services.validarEmail(email) == false ){
+            return res.status(400).json({msg: "Email invalido"})
+       }
+        if (services.validarNome(nome) == false){
+            return res.status(400).json({msg: "Nome invalido"})
+       }
         
         const consulta = await services.criarProfessorS(nome,email,senha)
     
@@ -56,7 +63,7 @@ const requisicaoCriarDisciplina = async (req, res) => {
         return res.status(200).json({msg: "Disciplina criada com sucesso !"})
     } 
     catch (error) {
-        middleware.erroController()
+        middleware.erroController(error)
     }
 }
 
@@ -67,7 +74,7 @@ const requisicaoCriarTurma = async (req,res) => {
         return res.status(200).json({msg: "Turma criada com sucesso !"})
     } 
     catch (error) {
-        middleware.erroController()
+        middleware.erroController(error)
     }
 }
 

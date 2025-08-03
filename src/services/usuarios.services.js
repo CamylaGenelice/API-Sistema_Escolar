@@ -33,7 +33,8 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
         return aluno
     }
      catch (error) {
-        middleware.erroServices(error)
+        //middleware.erroServices(error)
+        throw new Error(error)
     }
     
 

@@ -6,7 +6,7 @@ dotenv.config()
 const pg = new Client({
     host: process.env.HOST,
     port: process.env.PORT,
-    user: process.env.USER,
+    user: 'postgres',
     database: process.env.DATABASE,
     password: process.env.PASSWORD,
 
