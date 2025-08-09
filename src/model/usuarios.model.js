@@ -22,9 +22,9 @@ const criarAluno = async (nome, email, senha, matricula) => {
         
         if (err.code === '23505'){
             if (err.constraint === 'aluno_email_key')
-                throw new Error ('Email já cadastrado!')
-            if (err.constraint === 'aluno_matricula_key'){
-                throw new Error ('Matricula já cadastrada!')
+                throw new Error ('Email já cadastrado')
+            else if (err.constraint === 'aluno_matricula_key'){
+                throw new Error ('Matricula já cadastrada')
             }
             throw new Error('Dados já cadastrados')
             

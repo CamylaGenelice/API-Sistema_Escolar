@@ -35,10 +35,7 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
         return aluno
     }
      catch (error) {
-
-        if (error.message === 'Aluno já esta cadastrado') {
-            console.log('eefv----------')
-        }
+        
         throw error
     }
     
