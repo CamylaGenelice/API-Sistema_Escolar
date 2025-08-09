@@ -2,9 +2,7 @@ import banco from "../data/banco.js"
 import bcrypt from "bcrypt"
 import middleware from "../middleware/tratamentoPadrao.js"
 
-//const usuarioCadastrado = (messagem) => {
-    //console.log(messagem)
-//}
+
 
 const usuarioCadastrado = "Aluno ja esta cadastrado no banco de dados!"
 
@@ -46,7 +44,17 @@ const criarProfessor = async (nome, email, senha) => {
         return consulta.rows[0]
     } 
     catch (error) {
-        console.log('Erro ao inserir: ',error)
+        if (err.code === '23505'){
+           
+            if (err.constraint === 'professor_email_key') {
+                throw new Error ('Email já cadastrado')
+            }
+                
+            throw new Error('Dados já cadastrados')
+            
+        }
+        console.log('Erro ao inserir')
+        throw error
     }
     
 }

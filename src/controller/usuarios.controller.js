@@ -61,7 +61,12 @@ const requisicaoCriarProfessor = async (req, res) => {
         
     }
      catch (error) {
-       middleware.erroController(error) 
+
+       if (error.message === 'Email já cadastrado'){
+        return res.status(409).json({msg: error.message})
+       }
+       console.log('Erro ao criar professor! ',error)
+       return res.status(500).json({msg: "Erro interno no servidor!"})
     }
 }
 
