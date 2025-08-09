@@ -4,7 +4,6 @@ import middleware from "../middleware/tratamentoPadrao.js"
 
 
 
-const usuarioCadastrado = "Aluno ja esta cadastrado no banco de dados!"
 
 const criarAluno = async (nome, email, senha, matricula) => {
 
@@ -95,7 +94,16 @@ const pegarAluno = async (matricula) => {
     }
     
 }
+const pegarProfessor = async (email) => {
+    try {
+        const consulta = banco.query('SELECT email FROM professor WHERE email = $1',[email])
+        return consulta.rows[0]
+    } 
+    catch (error) {
+        throw new Error('Erro ao pegar dado ',error)
+    }
+}
 
 
 
-export default {criarAluno, criarProfessor, criarDisciplina, criarTurma, usuarioCadastrado}
+export default {criarAluno, criarProfessor, criarDisciplina, criarTurma, pegarAluno, pegarProfessor}

@@ -14,7 +14,6 @@ const validarMatricula = (matricula) => {
     return regex.test(matricula)
 }
 
-const tes = modelo.usuarioCadastrado
 
 const criarAlunoS = async (nome, email, senha, matricula) => {
     try {
@@ -103,4 +102,40 @@ const criarTurmaS = async (nome, codigoTurma, semestre) => {
     
 }
 
-export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome, tes}
+const pegarUsuarioAluno = async (matricula) => {
+    try {
+        if (!matricula){
+        console.log('Dados incompletos!') 
+    }
+        if(validarMatricula(matricula) == false){
+            console.log('Matricula incorreta')
+        }
+
+        const consulta = await modelo.pegarAluno(matricula)
+        return consulta
+    }
+    catch (error) {
+      throw error  
+    }
+}
+
+const pegarUsuarioProfessor = async (email) => {
+    try {
+       
+        if (!email){
+            console.log('Dados incompletos!')
+        }
+        if (validarEmail(email) == false){
+            console.log('Email incorreto')
+        }
+        const consulta = await modelo.pegarProfessor(email)
+        return consulta
+
+    } 
+    catch (error) {
+        throw error
+    }
+}
+
+
+export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome, pegarUsuarioAluno,pegarUsuarioProfessor}

@@ -92,5 +92,26 @@ const requisicaoCriarTurma = async (req,res) => {
         middleware.erroController(error)
     }
 }
+const requisicaoPegarAluno = async (req,res) => {
+    try {
+        const {matricula} = req.body
 
+        const consulta = await services.pegarUsuarioAluno(matricula)
+        return res.status(200).json({msg: consulta})
+    } 
+    catch (error) {
+        if(error.message === 'Matricula incorreta'){
+            return res.status(400).json({msg: error.message})
+        }
+        throw error
+    }
+}
+const requisicaoPegarProfessor = async (req,res) => {
+    try {
+        
+    } 
+    catch (error) {
+        
+    }
+}
 export default {requisicaoCriarAluno, requisicaoCriarProfessor, requisicaoCriarDisciplina, requisicaoCriarTurma}
