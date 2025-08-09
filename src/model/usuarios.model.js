@@ -12,9 +12,12 @@ const criarAluno = async (nome, email, senha, matricula) => {
         const consulta = await banco.query('INSERT INTO aluno (nome, email, senha, matricula) VALUES ($1, $2, $3, $4) RETURNING *', [nome,email,senhaHash,matricula])
         return consulta.rows[0]
     }
-     catch (error) {
+     catch (err) {
+        if (err.code === '23505'){
+            console.log('Aluno ja esta cadastrado')
+        }
         //middleware.erro(error);
-        throw new Error (error)
+        throw new Error (err)
     }
     
 }
@@ -48,9 +51,28 @@ const criarDisciplina = async (nome, cargaHoraria) => {
 
 const criarTurma = async (nome, codigoTurma, semestre) => {
 
-    const consulta = await banco.query('INSERT INTO turma (nome, codigoTurma, semestre) VALUES ($1,$2,$3) RETURNING *', [nome, codigoTurma,semestre])
+    try {
+         const consulta = await banco.query('INSERT INTO turma (nome, codigoTurma, semestre) VALUES ($1,$2,$3) RETURNING *', [nome, codigoTurma,semestre])
 
-    return consulta.rows[0]
+        return consulta.rows[0]
+    } 
+    catch (error) {
+        middleware.erro(error)
+    }
+   
 }
+
+
+const pegarAluno = async (matricula) => {
+    try {
+        const consulta = banco.query('SELECT matricula FROM aluno WHERE matricula = $1',[matricula])
+        return consulta.rows[0]
+    }
+     catch (error) {
+        throw new Error('Erro ao pegar dado',error)
+    }
+}
+
+
 
 export default {criarAluno, criarProfessor, criarDisciplina, criarTurma}

@@ -14,6 +14,13 @@ const validarMatricula = (matricula) => {
     return regex.test(matricula)
 }
 
+
+
+
+
+
+
+
 const criarAlunoS = async (nome, email, senha, matricula) => {
     try {
         
@@ -33,8 +40,11 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
         return aluno
     }
      catch (error) {
-        //middleware.erroServices(error)
-        throw new Error(error)
+
+        if (error.message === 'Aluno já esta cadastrado') {
+            console.log('eefv----------')
+        }
+        throw error
     }
     
 

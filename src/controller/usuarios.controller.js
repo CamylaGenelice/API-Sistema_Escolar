@@ -2,7 +2,7 @@ import services from "../services/usuarios.services.js";
 import middleware from "../middleware/tratamentoPadrao.js"
 
 
-const requisicaoCriarAluno = async (req,res,next) => {
+const requisicaoCriarAluno = async (req,res) => {
     try {
         const {nome, email, senha, matricula} = req.body
 
@@ -25,8 +25,11 @@ const requisicaoCriarAluno = async (req,res,next) => {
         })
     } 
     catch (error) {
-       console.log(error) 
-       return res.status(500).json({msg: "Erro interno"})
+        if (error === 'Aluno ja esta cadastrado'){
+            res.status(409).json({erro: "aluno ja esta cadastrado"})
+        }
+        console.log(error)
+        return res.status(500).json({msg: "Erro interno"})
     }
 }
 
