@@ -7,18 +7,18 @@ const erroController = (error) => {
     console.log('Erro no controller ',error)
     
 }
-const erroB = (message) => {
-    if (message === "Error: error: duplicar valor da chave viola a restrição de unicidade aluno_email_key "){
-        console.log('')
+
+
+const erroB = (message,res) => {
+    if (message == "Aluno ja esta cadastrado no banco de dados!"){
+        res.status(409).json({msg: "Aluno já esta cadastrado!"})
     }
 }
 
-const erroBancoDados = () => {
-    console.log('Erro ao salvar os dados no banco de dados!')
-}
-const erro = (error) => {
-    erroBancoDados()
+const erroBancoDados = (err) => {
+    console.log('Erro ao salvar os dados no banco de dados!', err)
 
 }
 
-export default {erroServices, erroController, erro, erroBancoDados, erroB}
+
+export default {erroServices, erroController,erroBancoDados, erroB}

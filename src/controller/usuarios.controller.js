@@ -25,11 +25,18 @@ const requisicaoCriarAluno = async (req,res) => {
         })
     } 
     catch (error) {
-        if (error === 'Aluno ja esta cadastrado'){
-            res.status(409).json({erro: "aluno ja esta cadastrado"})
+
+        if (error.message === 'Email já cadastrado'){
+            return res.status(409).json({msg: error.message })
         }
-        console.log(error)
-        return res.status(500).json({msg: "Erro interno"})
+        if (error.message === 'Matricula já cadastrada'){
+            return res.status(409).json({msg: error.message })
+        }
+        if (error.message === 'Dados já cadastrados'){
+            return res.status(409).json({msg: error.message })
+        }
+        console.log('Erro ao criar aluno', error)
+        return res.status(500).json({msg: "Erro interno no servidor"})
     }
 }
 

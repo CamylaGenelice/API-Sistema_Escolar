@@ -14,12 +14,7 @@ const validarMatricula = (matricula) => {
     return regex.test(matricula)
 }
 
-
-
-
-
-
-
+const tes = modelo.usuarioCadastrado
 
 const criarAlunoS = async (nome, email, senha, matricula) => {
     try {
@@ -111,4 +106,4 @@ const criarTurmaS = async (nome, codigoTurma, semestre) => {
     
 }
 
-export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome}
+export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome, tes}

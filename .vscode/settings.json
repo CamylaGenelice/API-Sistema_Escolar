@@ -2,8 +2,10 @@
     "cSpell.words": [
         "aceita",
         "Aluno",
+        "cadastrada",
         "cadastrado",
         "carga",
+        "chave",
         "codigo",
         "Conexão",
         "consulta",
@@ -12,6 +14,7 @@
         "criar",
         "Digite",
         "disciplina",
+        "duplicar",
         "entrada",
         "Erro",
         "esta",
@@ -19,6 +22,7 @@
         "Horaria",
         "incompletos",
         "inteiros",
+        "interno",
         "invalida",
         "invalido",
         "letras",
@@ -30,6 +34,7 @@
         "porta",
         "positivos",
         "requisicao",
+        "restrição",
         "rodando",
         "salvar",
         "semestre",
@@ -37,6 +42,7 @@
         "Servidor",
         "sucesso",
         "Turma",
+        "Usuario",
         "usuarios",
         "validar"
     ]

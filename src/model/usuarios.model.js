@@ -2,6 +2,12 @@ import banco from "../data/banco.js"
 import bcrypt from "bcrypt"
 import middleware from "../middleware/tratamentoPadrao.js"
 
+//const usuarioCadastrado = (messagem) => {
+    //console.log(messagem)
+//}
+
+const usuarioCadastrado = "Aluno ja esta cadastrado no banco de dados!"
+
 const criarAluno = async (nome, email, senha, matricula) => {
 
     
@@ -13,12 +19,20 @@ const criarAluno = async (nome, email, senha, matricula) => {
         return consulta.rows[0]
     }
      catch (err) {
+        
         if (err.code === '23505'){
-            console.log('Aluno ja esta cadastrado')
+            if (err.constraint === 'aluno_email_key')
+                throw new Error ('Email já cadastrado!')
+            if (err.constraint === 'aluno_matricula_key'){
+                throw new Error ('Matricula já cadastrada!')
+            }
+            throw new Error('Dados já cadastrados')
+            
         }
-        //middleware.erro(error);
-        throw new Error (err)
+        
+        throw err
     }
+    
     
 }
 
@@ -71,8 +85,9 @@ const pegarAluno = async (matricula) => {
      catch (error) {
         throw new Error('Erro ao pegar dado',error)
     }
+    
 }
 
 
 
-export default {criarAluno, criarProfessor, criarDisciplina, criarTurma}
+export default {criarAluno, criarProfessor, criarDisciplina, criarTurma, usuarioCadastrado}
