@@ -96,7 +96,7 @@ const pegarAluno = async (matricula) => {
 }
 const pegarProfessor = async (email) => {
     try {
-        const consulta = await banco.query('SELECT id,nome,email FROM professor WHERE email = $1 RETURNING *',[email])
+        const consulta = await banco.query('SELECT id,nome,email FROM professor WHERE email = $1 ',[email])
         return consulta.rows[0] || null
     } 
     catch (error) {
