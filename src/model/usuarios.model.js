@@ -86,8 +86,8 @@ const criarTurma = async (nome, codigoTurma, semestre) => {
 
 const pegarAluno = async (matricula) => {
     try {
-        const consulta = banco.query('SELECT matricula FROM aluno WHERE matricula = $1',[matricula])
-        return consulta.rows[0]
+        const consulta = await banco.query('SELECT id,nome, email, matricula FROM aluno WHERE matricula = $1',[matricula])
+        return consulta.rows[0] || null
     }
      catch (error) {
         throw new Error('Erro ao pegar dado',error)
@@ -96,8 +96,8 @@ const pegarAluno = async (matricula) => {
 }
 const pegarProfessor = async (email) => {
     try {
-        const consulta = banco.query('SELECT email FROM professor WHERE email = $1',[email])
-        return consulta.rows[0]
+        const consulta = await banco.query('SELECT id,nome,email FROM professor WHERE email = $1 RETURNING *',[email])
+        return consulta.rows[0] || null
     } 
     catch (error) {
         throw new Error('Erro ao pegar dado ',error)

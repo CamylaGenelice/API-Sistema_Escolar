@@ -100,7 +100,10 @@ const requisicaoPegarAluno = async (req,res) => {
         return res.status(200).json({msg: consulta})
     } 
     catch (error) {
-        if(error.message === 'Matricula incorreta'){
+        if(error.message === 'Erro ao pegar dado'){
+            return res.status(400).json({msg: error.message})
+        }
+        if (error.message === 'Dados incompletos'){
             return res.status(400).json({msg: error.message})
         }
         throw error
@@ -108,10 +111,15 @@ const requisicaoPegarAluno = async (req,res) => {
 }
 const requisicaoPegarProfessor = async (req,res) => {
     try {
-        
+        const {email} = req.body
+
+        const consulta = await services.pegarUsuarioProfessor(email)
+        return res.status(200).json({msg: consulta})
     } 
     catch (error) {
-        
+        if(error.message === 'Erro ao pegar dado'){
+            return res.status(400).json({msg: error.message})
+        }
     }
 }
-export default {requisicaoCriarAluno, requisicaoCriarProfessor, requisicaoCriarDisciplina, requisicaoCriarTurma}
+export default {requisicaoCriarAluno, requisicaoCriarProfessor, requisicaoCriarDisciplina, requisicaoCriarTurma,requisicaoPegarAluno,requisicaoPegarProfessor}

@@ -105,7 +105,7 @@ const criarTurmaS = async (nome, codigoTurma, semestre) => {
 const pegarUsuarioAluno = async (matricula) => {
     try {
         if (!matricula){
-        console.log('Dados incompletos!') 
+        console.log('Dados incompletos') 
     }
         if(validarMatricula(matricula) == false){
             console.log('Matricula incorreta')
