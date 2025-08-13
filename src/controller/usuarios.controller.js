@@ -7,7 +7,7 @@ const requisicaoCriarAluno = async (req,res) => {
         const {nome, email, senha, matricula} = req.body
 
         if (!nome || !email || !senha || !matricula){
-            return res.status(400).json({msg: " Dados Incompletos"})
+            return res.status(400).json({msg: 'Dados incompleto'})
         }
        if (services.validarMatricula(matricula) == false){
         return res.status(400).json({msg: "Matricula so aceita números positivos inteiros"})
@@ -25,7 +25,7 @@ const requisicaoCriarAluno = async (req,res) => {
         })
     } 
     catch (error) {
-
+       
         if (error.message === 'Email já cadastrado'){
             return res.status(409).json({msg: error.message })
         }

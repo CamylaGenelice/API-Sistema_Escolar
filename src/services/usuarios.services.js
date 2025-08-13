@@ -18,8 +18,6 @@ const validarMatricula = (matricula) => {
 const criarAlunoS = async (nome, email, senha, matricula) => {
     try {
         
-        if (!nome || !email || !senha || !matricula){
-        console.log('Dados incompletos!') }
         
         if(validarNome(nome) == false){
             console.log('Erro: Nome invalido!') }
