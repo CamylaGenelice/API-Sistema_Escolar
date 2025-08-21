@@ -32,3 +32,4 @@ node_modules/
 .gitattributes
 .vscode/
 README.md
+.env
