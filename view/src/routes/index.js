@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import cadastroAluno from '@/components/cadastroAluno.vue'
+
+import CadastroAluno from '@/components/CadastroAluno.vue'
 
 const routes = [
     {
         path: '/',
         nome: 'Home',
-        component: cadastroAluno
+        component: CadastroAluno
     },
     {
         path: '/alunos',
         name: 'Cadastro',
-        component: cadastroAluno
+        component: CadastroAluno
 
     }
 ]

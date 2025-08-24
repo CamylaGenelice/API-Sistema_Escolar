@@ -1,5 +1,5 @@
 import services from "../services/usuarios.services.js";
-import middleware from "../middleware/tratamentoPadrao.js"
+
 
 
 const requisicaoCriarAluno = async (req,res) => {
@@ -78,7 +78,8 @@ const requisicaoCriarDisciplina = async (req, res) => {
         return res.status(200).json({msg: "Disciplina criada com sucesso !"})
     } 
     catch (error) {
-        middleware.erroController(error)
+        throw Error
+        
     }
 }
 
@@ -89,7 +90,9 @@ const requisicaoCriarTurma = async (req,res) => {
         return res.status(200).json({msg: "Turma criada com sucesso !"})
     } 
     catch (error) {
-        middleware.erroController(error)
+
+        throw Error
+        
     }
 }
 const requisicaoPegarAluno = async (req,res) => {
@@ -120,6 +123,7 @@ const requisicaoPegarProfessor = async (req,res) => {
         if(error.message === 'Erro ao pegar dado'){
             return res.status(400).json({msg: error.message})
         }
+        throw Error
     }
 }
 export default {requisicaoCriarAluno, requisicaoCriarProfessor, requisicaoCriarDisciplina, requisicaoCriarTurma,requisicaoPegarAluno,requisicaoPegarProfessor}
