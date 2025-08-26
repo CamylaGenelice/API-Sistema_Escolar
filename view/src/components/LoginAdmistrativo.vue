@@ -1,6 +1,6 @@
 <template>
-    <div class="flex justify-content-center align-items-center" style="min-height: 100vh;">
-     <Card class="w-full md:w-6"> 
+    <div class="flex justify-content-center align-items-center cor-body" style="min-height: 100vh;">
+     <Card class="w-full md:w-6 borda"> 
         <template #title >
             <div id="titulo">Login Admin</div>
         </template>
@@ -24,9 +24,11 @@
                     :loading="loading"
                 />    
             </div>
+            <div class="footer"> &copy; 2025 Sabiá</div>
         </template>
+          
      </Card>
-     <div class="footer"> @ 2025 Sabiá</div>   
+      
     </div>
 </template>
 
@@ -76,8 +78,25 @@ const login = async () => {
 }
 </script>
 
-<style scoped>
+<style>
+
 #titulo {
-    color:#001a62 ;
+    text-align: center;
+    color:#0077d8;
+}
+
+.footer {
+    margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+}
+.cor-body {
+    
+    background: linear-gradient(135deg, #2c57a8, #2a5298);
+}
+.borda {
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 </style>
