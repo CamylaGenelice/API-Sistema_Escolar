@@ -1,7 +1,9 @@
 <template>
     <div class="flex justify-content-center align-items-center" style="min-height: 100vh;">
      <Card class="w-full md:w-6"> 
-        <template #title>Login Admin</template>
+        <template #title >
+            <div id="titulo">Login Admin</div>
+        </template>
         <template #content>
             <div class="p-fluid">
 
@@ -19,11 +21,12 @@
                     icon="pi pi-user-plus"
                     class="mt-3"
                     @click="login"
-                    :loading="loadin"
+                    :loading="loading"
                 />    
             </div>
         </template>
-     </Card>   
+     </Card>
+     <div class="footer"> @ 2025 Sabiá</div>   
     </div>
 </template>
 
@@ -72,3 +75,9 @@ const login = async () => {
     }
 }
 </script>
+
+<style scoped>
+#titulo {
+    color:#001a62 ;
+}
+</style>
