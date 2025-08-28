@@ -135,5 +135,12 @@ const pegarUsuarioProfessor = async (email) => {
     }
 }
 
+const atualizarEmailProfessor = async (emailNovo, emailAntigo) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
 
 export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome, pegarUsuarioAluno,pegarUsuarioProfessor}

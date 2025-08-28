@@ -104,6 +104,33 @@ const pegarProfessor = async (email) => {
     }
 }
 
+const atualizarEmailProfessor = async(emailNovo, emailAntigo) => {
+    try {
+        const consulta = await banco.query('UPDATE professor SET email = $1 WHERE email = $2 RETURNING email',[emailNovo,emailAntigo])
+        return consulta.rows[0]
+    }
+     catch (error) {
+        throw new Error('Erro ao atualizar email do professor ',error)
+    }
+}
+const atualizarEmailAluno = async(emailNovo,emailAntigo) => {
+    try {
+        const consulta = await banco.query('UPDATE aluno SET email = $1 WHERE email = $2 RETURNING email',[emailNovo,emailAntigo])
+        return consulta.rows[0]
+    } 
+    catch (error) {
+        throw new Error('Erro ao atualizar email do aluno ',error)
 
-
+    }
+}
+const atualizarNomeDisciplina = async (nomeNovo, id) => {
+    try {
+        const consulta = await banco.query('UPDATE disciplina SET nome = $1 WHERE id = $2 RETURNING * ',[nomeNovo,id])
+        return consulta.rows[0]
+    }
+     catch (error) {
+        throw new Error ('Erro ao atualizar nome da disciplina',error)
+    }
+}
+//const atualizarHorarioDisciplina = async ()
 export default {criarAluno, criarProfessor, criarDisciplina, criarTurma, pegarAluno, pegarProfessor}
