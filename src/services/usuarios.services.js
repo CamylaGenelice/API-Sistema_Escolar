@@ -20,13 +20,13 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
         
         
         if(validarNome(nome) == false){
-            console.log('Erro: Nome invalido!') }
+           throw error('Nome invalido') }
 
         if (validarEmail(email) == false){
-            console.log('Erro: Email invalido!')}
+            throw error('Email invalido')}
 
         if (validarMatricula(matricula) == false){
-            console.log('Erro: Matricula não aceita letras ou nomes')}
+            throw error('Matricula invalida')}
 
         const aluno = await modelo.criarAluno(nome,email,senha,matricula)
         return aluno
@@ -43,14 +43,11 @@ const criarProfessorS = async (nome,email,senha) => {
 
     try {
 
-        if (!nome || !email || !senha){
-        console.log('Dados incompletos!') }
-
         if(validarNome(nome) == false){
-        console.log('Erro: Nome invalido!') }
+            throw error('Nome invalido') }
 
         if(validarEmail(email) == false){
-        console.log('Erro: Email invalido!') }
+            throw error('Email invalido') }
 
         const professor = await modelo.criarProfessor(nome,email,senha)
         return professor
@@ -62,28 +59,26 @@ const criarProfessorS = async (nome,email,senha) => {
     
 }
 
-const criarDisciplinaS = async (nome,cargaHoraria) => {
+const criarDisciplinaS = async (nome,cargaHoraria,dia,horaInicio,horaFim) => {
     try {
-        if (!nome || !cargaHoraria){
-        console.log('Dados incompletos!') }
 
         if(validarNome(nome) == false) {
-        console.log('Nome invalido') }  
+        throw error('Nome invalido') }  
 
-        const disciplina = await modelo.criarDisciplina(nome,cargaHoraria)
+        
+
+        const disciplina = await modelo.criarDisciplina(nome,cargaHoraria,dia,horaInicio,horaFim)
         return disciplina
     } 
     catch (error) {
-        middleware.erroServices(error)
+        throw error
     }
       
 }
 
-const criarTurmaS = async (nome, codigoTurma, semestre) => {
+const criarTurmaS = async (nome, codigoTurma) => {
     try {
-        if (!nome || !codigoTurma || !semestre){
-        console.log('Dados incompletos!')
-        }
+        
         if (validarNome(nome) == false){
             console.log('Nome invalido!')
         }
@@ -91,22 +86,20 @@ const criarTurmaS = async (nome, codigoTurma, semestre) => {
             console.log('Entrada invalida, so é permitido a entrada de números')
         }
         
-        const turma = await modelo.criarTurma(nome,codigoTurma,semestre)
+        const turma = await modelo.criarTurma(nome,codigoTurma)
         return turma
     } 
     catch (error) {
-        middleware.erroServices(error)
+        throw error
     }
     
 }
 
 const pegarUsuarioAluno = async (matricula) => {
     try {
-        if (!matricula){
-        console.log('Dados incompletos') 
-    }
+       
         if(validarMatricula(matricula) == false){
-            console.log('Matricula incorreta')
+           throw error('Matricula invalida')
         }
 
         const consulta = await modelo.pegarAluno(matricula)
@@ -120,11 +113,8 @@ const pegarUsuarioAluno = async (matricula) => {
 const pegarUsuarioProfessor = async (email) => {
     try {
        
-        if (!email){
-            console.log('Dados incompletos!')
-        }
         if (validarEmail(email) == false){
-            console.log('Email incorreto')
+            throw error('Email invalido')
         }
         const consulta = await modelo.pegarProfessor(email)
         return consulta
@@ -137,10 +127,15 @@ const pegarUsuarioProfessor = async (email) => {
 
 const atualizarEmailProfessor = async (emailNovo, emailAntigo) => {
     try {
-        
-    } catch (error) {
-        
+        if(validarEmail(emailNovo) == false){
+            throw new Error("Email invalido")
+        }
+        const consulta = await modelo.atualizarEmailProfessor(emailNovo,emailAntigo)
+        return consulta
+    }
+     catch (error) {
+        throw error
     }
 }
 
-export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome, pegarUsuarioAluno,pegarUsuarioProfessor}
+export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome, pegarUsuarioAluno,pegarUsuarioProfessor,atualizarEmailProfessor}

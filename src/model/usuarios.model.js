@@ -15,19 +15,21 @@ const criarAluno = async (nome, email, senha, matricula) => {
         const consulta = await banco.query('INSERT INTO aluno (nome, email, senha, matricula) VALUES ($1, $2, $3, $4) RETURNING *', [nome,email,senhaHash,matricula])
         return consulta.rows[0]
     }
-     catch (err) {
+     catch (error) {
         
-        if (err.code === '23505'){
-            if (err.constraint === 'aluno_email_key')
+        if (error.code === '23505'){
+            if (error.constraint === 'aluno_email_key'){
                 throw new Error ('Email já cadastrado')
-            else if (err.constraint === 'aluno_matricula_key'){
+            }
+                
+            else if (error.constraint === 'aluno_matricula_key'){
                 throw new Error ('Matricula já cadastrada')
             }
             throw new Error('Dados já cadastrados')
             
         }
         
-        throw err
+        throw error
     }
     
     
@@ -43,43 +45,53 @@ const criarProfessor = async (nome, email, senha) => {
         return consulta.rows[0]
     } 
     catch (error) {
-        if (err.code === '23505'){
+        if (error.code === '23505'){
            
-            if (err.constraint === 'professor_email_key') {
+            if (error.constraint === 'professor_email_key') {
                 throw new Error ('Email já cadastrado')
             }
                 
             throw new Error('Dados já cadastrados')
-            
         }
-        console.log('Erro ao inserir')
+        
         throw error
     }
     
 }
 
-const criarDisciplina = async (nome, cargaHoraria) => {
+const criarDisciplina = async (nome, cargaHoraria,dia,horaInicio,horaFim) => {
     try {
-         const consulta = await banco.query('INSERT INTO disciplina (nome, cargaHoraria) VALUES ($1, $2) RETURNING *', [nome,cargaHoraria])
+         const consulta = await banco.query('INSERT INTO disciplina (nome,carga_horaria,dia,hora_inicio,hora_fim) VALUES ($1, $2,S3,S4,S5) RETURNING *', [nome,cargaHoraria,dia,horaInicio,horaFim])
 
         return consulta.rows[0]
     } catch (error) {
-         middleware.erro(error);
+        if (error.code === '23505'){
+            if (error.constraint === 'disciplina_nome_key'){
+                 throw new Error ('Nome da disciplina já cadastrado')
+            }
+            throw new Error('Dados já cadastrados')   
+          }
+          throw error 
     }
 
    
 }
 
-const criarTurma = async (nome, codigoTurma, semestre) => {
+const criarTurma = async (nome, codigoTurma) => {
 
     try {
-         const consulta = await banco.query('INSERT INTO turma (nome, codigoTurma, semestre) VALUES ($1,$2,$3) RETURNING *', [nome, codigoTurma,semestre])
+         const consulta = await banco.query('INSERT INTO turma (nome, codigo) VALUES ($1,$2) RETURNING *', [nome, codigoTurma])
 
-        return consulta.rows[0]
+         return consulta.rows[0]
     } 
     catch (error) {
-        middleware.erro(error)
-    }
+         if (error.code === '23505'){
+            if (error.constraint === 'turma_codigo_key'){
+                 throw new Error ('Codigo da turma já cadastrado')
+            }
+            throw new Error('Dados já cadastrados')   
+          } 
+}
    
 }
 
@@ -133,4 +145,4 @@ const atualizarNomeDisciplina = async (nomeNovo, id) => {
     }
 }
 //const atualizarHorarioDisciplina = async ()
-export default {criarAluno, criarProfessor, criarDisciplina, criarTurma, pegarAluno, pegarProfessor}
+export default {criarAluno, criarProfessor, criarDisciplina, criarTurma, pegarAluno, pegarProfessor,atualizarEmailAluno,atualizarEmailProfessor,atualizarNomeDisciplina}
