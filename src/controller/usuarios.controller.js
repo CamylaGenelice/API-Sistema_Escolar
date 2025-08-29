@@ -70,9 +70,6 @@ const requisicaoCriarProfessor = async (req, res) => {
     }
 }
 
-
-
-
 const requisicaoPegarAluno = async (req,res) => {
     try {
         const {matricula} = req.body
@@ -104,4 +101,4 @@ const requisicaoPegarProfessor = async (req,res) => {
         throw Error
     }
 }
-export default {requisicaoCriarAluno, requisicaoCriarProfessor, requisicaoCriarDisciplina, requisicaoCriarTurma,requisicaoPegarAluno,requisicaoPegarProfessor}
+export default {requisicaoCriarAluno, requisicaoCriarProfessor,requisicaoPegarAluno,requisicaoPegarProfessor}

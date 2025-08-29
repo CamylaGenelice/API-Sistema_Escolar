@@ -12,3 +12,5 @@ const requisicaoCriarDisciplina = async (req, res) => {
         
     }
 }
+
+export default {requisicaoCriarDisciplina}

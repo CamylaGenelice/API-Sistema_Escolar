@@ -12,3 +12,5 @@ const requisicaoCriarTurma = async (req,res) => {
         
     }
 }
+
+export default {requisicaoCriarTurma}
