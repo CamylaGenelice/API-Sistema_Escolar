@@ -1,5 +1,6 @@
-import modelo from "../model/usuarios.model.js"
-import middleware from "../middleware/tratamentoPadrao.js"
+import entidadeUsuarios from "../model/usuarios.model.js"
+import turmaModel from "../model/turma.model.js"
+import disciplinaModel from "../model/disciplina.model.js"
 
 const validarNome = (nome) => {
     const regex = /^[A-Za-zÀ-ÿ\s]+$/ 
@@ -28,12 +29,12 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
         if (validarMatricula(matricula) == false){
             throw error('Matricula invalida')}
 
-        const aluno = await modelo.criarAluno(nome,email,senha,matricula)
+        const aluno = await entidadeUsuarios.criarAluno(nome,email,senha,matricula)
         return aluno
     }
      catch (error) {
         
-        throw error
+        throw  new Error ('Erro ao criar aluno') 
     }
     
 
@@ -49,12 +50,12 @@ const criarProfessorS = async (nome,email,senha) => {
         if(validarEmail(email) == false){
             throw error('Email invalido') }
 
-        const professor = await modelo.criarProfessor(nome,email,senha)
+        const professor = await entidadeUsuarios.criarProfessor(nome,email,senha)
         return professor
     
 } 
     catch (error) {
-        middleware.erroServices(error)
+        throw  new Error ('Erro ao criar professor') 
     }
     
 }
@@ -67,11 +68,11 @@ const criarDisciplinaS = async (nome,cargaHoraria,dia,horaInicio,horaFim) => {
 
         
 
-        const disciplina = await modelo.criarDisciplina(nome,cargaHoraria,dia,horaInicio,horaFim)
+        const disciplina = await disciplinaModel.criarDisciplina(nome,cargaHoraria,dia,horaInicio,horaFim)
         return disciplina
     } 
     catch (error) {
-        throw error
+        throw  new Error ('Erro ao criar disciplina') 
     }
       
 }
@@ -86,11 +87,11 @@ const criarTurmaS = async (nome, codigoTurma) => {
             console.log('Entrada invalida, so é permitido a entrada de números')
         }
         
-        const turma = await modelo.criarTurma(nome,codigoTurma)
+        const turma = await turmaModel.criarTurma(nome,codigoTurma)
         return turma
     } 
     catch (error) {
-        throw error
+       throw  new Error ('Erro ao criar turma') 
     }
     
 }
@@ -102,11 +103,11 @@ const pegarUsuarioAluno = async (matricula) => {
            throw error('Matricula invalida')
         }
 
-        const consulta = await modelo.pegarAluno(matricula)
+        const consulta = await entidadeUsuarios.pegarAluno(matricula)
         return consulta
     }
     catch (error) {
-      throw error  
+      throw  new Error ('Erro ao buscar aluno') 
     }
 }
 
@@ -116,12 +117,12 @@ const pegarUsuarioProfessor = async (email) => {
         if (validarEmail(email) == false){
             throw error('Email invalido')
         }
-        const consulta = await modelo.pegarProfessor(email)
+        const consulta = await entidadeUsuarios.pegarProfessor(email)
         return consulta
 
     } 
     catch (error) {
-        throw error
+        throw  new Error ('Erro ao buscar professor') 
     }
 }
 
@@ -130,11 +131,11 @@ const atualizarEmailProfessor = async (emailNovo, emailAntigo) => {
         if(validarEmail(emailNovo) == false){
             throw new Error("Email invalido")
         }
-        const consulta = await modelo.atualizarEmailProfessor(emailNovo,emailAntigo)
+        const consulta = await entidadeUsuarios.atualizarEmailProfessor(emailNovo,emailAntigo)
         return consulta
     }
      catch (error) {
-        throw error
+        throw new Error ('Erro ao atualizar email')
     }
 }
 
