@@ -70,31 +70,9 @@ const requisicaoCriarProfessor = async (req, res) => {
     }
 }
 
-const requisicaoCriarDisciplina = async (req, res) => {
-    try {
-        const {nome,cargaHoraria} = req.body
-        
-        const consulta = await services.criarDisciplinaS(nome,cargaHoraria)
-        return res.status(200).json({msg: "Disciplina criada com sucesso !"})
-    } 
-    catch (error) {
-        throw Error
-        
-    }
-}
 
-const requisicaoCriarTurma = async (req,res) => {
-    try {
-        const {nome, codigoTurma, semestre} = req.body
-        const consulta = await services.criarTurmaS(nome, codigoTurma, semestre)
-        return res.status(200).json({msg: "Turma criada com sucesso !"})
-    } 
-    catch (error) {
 
-        throw Error
-        
-    }
-}
+
 const requisicaoPegarAluno = async (req,res) => {
     try {
         const {matricula} = req.body
