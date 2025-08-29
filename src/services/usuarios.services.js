@@ -1,32 +1,18 @@
 import entidadeUsuarios from "../model/usuarios.model.js"
-import turmaModel from "../model/turma.model.js"
-import disciplinaModel from "../model/disciplina.model.js"
-
-const validarNome = (nome) => {
-    const regex = /^[A-Za-zÀ-ÿ\s]+$/ 
-    return regex.test(nome)
-}
-const validarEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return regex.test(email)
-}
-const validarMatricula = (matricula) => {
-    const regex = /^\d+$/
-    return regex.test(matricula)
-}
+import validacoesServices from "./validacoes.services.js"
 
 
 const criarAlunoS = async (nome, email, senha, matricula) => {
     try {
         
         
-        if(validarNome(nome) == false){
+        if(validacoesServices.validarNome(nome) == false){
            throw error('Nome invalido') }
 
-        if (validarEmail(email) == false){
+        if (validacoesServices.validarEmail(email) == false){
             throw error('Email invalido')}
 
-        if (validarMatricula(matricula) == false){
+        if (validacoesServices.validarMatricula(matricula) == false){
             throw error('Matricula invalida')}
 
         const aluno = await entidadeUsuarios.criarAluno(nome,email,senha,matricula)
@@ -44,10 +30,10 @@ const criarProfessorS = async (nome,email,senha) => {
 
     try {
 
-        if(validarNome(nome) == false){
+        if(validacoesServices.validarNome(nome) == false){
             throw error('Nome invalido') }
 
-        if(validarEmail(email) == false){
+        if(validacoesServices.validarEmail(email) == false){
             throw error('Email invalido') }
 
         const professor = await entidadeUsuarios.criarProfessor(nome,email,senha)
@@ -60,46 +46,10 @@ const criarProfessorS = async (nome,email,senha) => {
     
 }
 
-const criarDisciplinaS = async (nome,cargaHoraria,dia,horaInicio,horaFim) => {
-    try {
-
-        if(validarNome(nome) == false) {
-        throw error('Nome invalido') }  
-
-        
-
-        const disciplina = await disciplinaModel.criarDisciplina(nome,cargaHoraria,dia,horaInicio,horaFim)
-        return disciplina
-    } 
-    catch (error) {
-        throw  new Error ('Erro ao criar disciplina') 
-    }
-      
-}
-
-const criarTurmaS = async (nome, codigoTurma) => {
-    try {
-        
-        if (validarNome(nome) == false){
-            console.log('Nome invalido!')
-        }
-        if (validarMatricula(codigoTurma) == false){
-            console.log('Entrada invalida, so é permitido a entrada de números')
-        }
-        
-        const turma = await turmaModel.criarTurma(nome,codigoTurma)
-        return turma
-    } 
-    catch (error) {
-       throw  new Error ('Erro ao criar turma') 
-    }
-    
-}
-
 const pegarUsuarioAluno = async (matricula) => {
     try {
        
-        if(validarMatricula(matricula) == false){
+        if(validacoesServices.validarMatricula(matricula) == false){
            throw error('Matricula invalida')
         }
 
@@ -114,7 +64,7 @@ const pegarUsuarioAluno = async (matricula) => {
 const pegarUsuarioProfessor = async (email) => {
     try {
        
-        if (validarEmail(email) == false){
+        if (validacoesServices.validarEmail(email) == false){
             throw error('Email invalido')
         }
         const consulta = await entidadeUsuarios.pegarProfessor(email)
@@ -128,7 +78,7 @@ const pegarUsuarioProfessor = async (email) => {
 
 const atualizarEmailProfessor = async (emailNovo, emailAntigo) => {
     try {
-        if(validarEmail(emailNovo) == false){
+        if(validacoesServices.validarEmail(emailNovo) == false){
             throw new Error("Email invalido")
         }
         const consulta = await entidadeUsuarios.atualizarEmailProfessor(emailNovo,emailAntigo)
@@ -139,4 +89,4 @@ const atualizarEmailProfessor = async (emailNovo, emailAntigo) => {
     }
 }
 
-export default {criarAlunoS, criarDisciplinaS, criarProfessorS, criarTurmaS, validarMatricula, validarEmail,validarNome, pegarUsuarioAluno,pegarUsuarioProfessor,atualizarEmailProfessor}
+export default {criarAlunoS, criarProfessorS,pegarUsuarioAluno,pegarUsuarioProfessor,atualizarEmailProfessor}
