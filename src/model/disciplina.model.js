@@ -26,7 +26,15 @@ const atualizarNomeDisciplina = async (nomeNovo, id) => {
         throw new Error ('Erro ao atualizar nome da disciplina')
     }
 }
+const pegarDisciplina = async (nome) => {
+    try {
+        const consulta = await banco.query('SELECT disciplina WHERE nome = $1',[nome])
+        return consulta.rows[0]
+    } 
+    catch (error) {
+        throw new Error ('Erro ao pegar disciplina')
+    }
+}
 
 
-
-export default {criarDisciplina,atualizarNomeDisciplina }
+export default {atualizarNomeDisciplina,criarDisciplina,pegarDisciplina }

@@ -27,5 +27,14 @@ const atualizarNomeTurma = async (nomeNovo, id) => {
         throw new Error ('Erro ao atualizar nome da turma')
     }
 }
+const pegarTurma = async (codigoTurma) => {
+    try {
+        const consulta = await banco.query('SELECT turma WHERE codigo_turma = $1',[codigoTurma])
+        return consulta.rows[0]
+    } 
+    catch (error) {
+        throw new Error ('Erro ao pegar turma')
+    }
+}
 
-export default {criarTurma,atualizarNomeTurma}
+export default {atualizarNomeTurma,criarTurma,pegarTurma}

@@ -1,7 +1,8 @@
 import disciplinaModel from "../model/disciplina.model.js"
 import validacoesServices from "./validacoes.services.js"
 
-const criarDisciplinaS = async (nome,cargaHoraria,dia,horaInicio,horaFim) => {
+
+const criarDisciplina = async (nome,cargaHoraria,dia,horaInicio,horaFim) => {
     try {
 
         if(validacoesServices.validarNome(nome) == false) {
@@ -16,5 +17,29 @@ const criarDisciplinaS = async (nome,cargaHoraria,dia,horaInicio,horaFim) => {
     }
       
 }
+const pegarDisciplina = async (nome) => {
+    try {
+         if(validacoesServices.validarNome(nome) == false){
+            throw new Error ('Erro nome invalido')
+         }
+         const consulta = await disciplinaModel.pegarDisciplina(nome)
+         return consulta
+    } 
+    catch (error) {
+        throw new Error('Erro ao pegar disciplina')
+    }
+} 
+const atualizarNomeDisciplina = async (nomeNovo,id) => {
+    try {
+        if(validacoesServices.validarNome(nome) == false){
+            throw new Error ('Erro nome invalido')
+        }
+        const consulta = await disciplinaModel.atualizarNomeDisciplina(nomeNovo,id)
+        return consulta
+    } 
+    catch (error) {
+        throw new Error('Erro ao atualizar disciplina')
+    }
+}
 
-export default {criarDisciplinaS}
+export default {criarDisciplina,pegarDisciplina,atualizarNomeDisciplina}
