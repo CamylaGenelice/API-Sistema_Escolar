@@ -39,7 +39,6 @@ const requisicaoCriarAluno = async (req,res) => {
         return res.status(500).json({msg: "Erro interno no servidor"})
     }
 }
-
 const requisicaoCriarProfessor = async (req, res) => {
     try {
         const {nome,email,senha} = req.body
@@ -69,7 +68,6 @@ const requisicaoCriarProfessor = async (req, res) => {
        return res.status(500).json({msg: "Erro interno no servidor!"})
     }
 }
-
 const requisicaoPegarAluno = async (req,res) => {
     try {
         const {matricula} = req.body
@@ -103,4 +101,34 @@ const requisicaoPegarProfessor = async (req,res) => {
         return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
-export default {requisicaoCriarAluno, requisicaoCriarProfessor,requisicaoPegarAluno,requisicaoPegarProfessor}
+const requisicaoAtualizarEmailA = async (req, res) => {
+    try {
+        const {emailNovo, emailAntigo} = req.body
+        
+        if (!emailAntigo || !emailNovo) {
+            return res.status(400).json({message: 'Dados incompletos'})
+        }
+        const consulta = await services.atualizarEmailAluno(emailNovo,emailAntigo)
+        return res.status(200).json({consulta})
+    }
+     catch (error) {
+        console.error('Erro ao atualizar email ',error)
+        return res.status(500).json({message: 'Erro interno no servidor'})
+    }
+}
+const requisicaoAtualizarEmailP = async (req, res) => {
+    try {
+        const {emailNovo, emailAntigo} = req.body
+        
+        if (!emailAntigo || !emailNovo) {
+            return res.status(400).json({message: 'Dados incompletos'})
+        }
+        const consulta = await services.atualizarEmailProfessor(emailNovo,emailAntigo)
+        return res.status(200).json({consulta})
+    }
+     catch (error) {
+        console.error('Erro ao atualizar email do professor',error)
+        return res.status(500).json({message: 'Erro interno no servidor'})
+    }
+}
+export default {requisicaoCriarAluno, requisicaoCriarProfessor,requisicaoPegarAluno,requisicaoPegarProfessor,requisicaoAtualizarEmailA,requisicaoAtualizarEmailP}

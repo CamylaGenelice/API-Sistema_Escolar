@@ -1,4 +1,4 @@
-import entidadeUsuarios from "../model/usuarios.model.js"
+import usuarioModelo from "../model/usuarios.model.js"
 import validacoesServices from "./validacoes.services.js"
 
 
@@ -15,7 +15,7 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
         if (validacoesServices.validarMatricula(matricula) == false){
             throw error('Matricula invalida')}
 
-        const aluno = await entidadeUsuarios.criarAluno(nome,email,senha,matricula)
+        const aluno = await usuarioModelo.criarAluno(nome,email,senha,matricula)
         return aluno
     }
      catch (error) {
@@ -36,7 +36,7 @@ const criarProfessorS = async (nome,email,senha) => {
         if(validacoesServices.validarEmail(email) == false){
             throw error('Email invalido') }
 
-        const professor = await entidadeUsuarios.criarProfessor(nome,email,senha)
+        const professor = await usuarioModelo.criarProfessor(nome,email,senha)
         return professor
     
 } 
@@ -53,7 +53,7 @@ const pegarUsuarioAluno = async (matricula) => {
            throw error('Matricula invalida')
         }
 
-        const consulta = await entidadeUsuarios.pegarAluno(matricula)
+        const consulta = await usuarioModelo.pegarAluno(matricula)
         return consulta
     }
     catch (error) {
@@ -67,7 +67,7 @@ const pegarUsuarioProfessor = async (email) => {
         if (validacoesServices.validarEmail(email) == false){
             throw error('Email invalido')
         }
-        const consulta = await entidadeUsuarios.pegarProfessor(email)
+        const consulta = await usuarioModelo.pegarProfessor(email)
         return consulta
 
     } 
@@ -81,12 +81,23 @@ const atualizarEmailProfessor = async (emailNovo, emailAntigo) => {
         if(validacoesServices.validarEmail(emailNovo) == false){
             throw new Error("Email invalido")
         }
-        const consulta = await entidadeUsuarios.atualizarEmailProfessor(emailNovo,emailAntigo)
+        const consulta = await usuarioModelo.atualizarEmailProfessor(emailNovo,emailAntigo)
         return consulta
     }
      catch (error) {
         throw new Error ('Erro ao atualizar email')
     }
 }
-
-export default {criarAlunoS, criarProfessorS,pegarUsuarioAluno,pegarUsuarioProfessor,atualizarEmailProfessor}
+const atualizarEmailAluno = async (emailNovo, emailAntigo) => {
+    try {
+        if(validacoesServices.validarEmail(emailNovo)  == false || validacoesServices.validarEmail(emailAntigo) == false){
+            throw new Error('Email invalido')
+        }
+        const consulta = await usuarioModelo.atualizarEmailAluno(emailNovo, emailAntigo)
+        return consulta
+    } 
+    catch (error) {
+        throw new Error('Erro ao atualizar email do aluno')
+    }
+}
+export default {criarAlunoS, criarProfessorS,pegarUsuarioAluno,pegarUsuarioProfessor,atualizarEmailProfessor,atualizarEmailAluno}

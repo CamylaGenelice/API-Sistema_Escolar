@@ -13,6 +13,13 @@ router.post('/turma',turmaController.requisicaoCriarTurma)
 
 router.get('/aluno',controllerUser.requisicaoPegarAluno)
 router.get('/prof',controllerUser.requisicaoPegarProfessor)
+router.get('/turma',turmaController.requisicaoPegarTurma)
+router.get('/disciplins',disciplinaController.requisicaoPegarDisciplina)
+
+router.put('/aluno/:email',controllerUser.requisicaoAtualizarEmailA)
+router.put('/professor/:email',controllerUser.requisicaoAtualizarEmailP)
+router.put('/turma/:codigo',turmaController.requisicaoAtualizarNomeTurma)
+router.put('/disciplina/:id',disciplinaController.requisicaoAtualizarNomeDisciplina)
 
 export default router
 
