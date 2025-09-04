@@ -35,7 +35,7 @@ const requisicaoCriarAluno = async (req,res) => {
         if (error.message === 'Dados já cadastrados'){
             return res.status(409).json({msg: error.message })
         }
-        console.log('Erro ao criar aluno', error)
+        console.error('Erro ao criar aluno', error)
         return res.status(500).json({msg: "Erro interno no servidor"})
     }
 }
@@ -65,7 +65,7 @@ const requisicaoCriarProfessor = async (req, res) => {
        if (error.message === 'Email já cadastrado'){
         return res.status(409).json({msg: error.message})
        }
-       console.log('Erro ao criar professor! ',error)
+       console.error('Erro ao criar professor! ',error)
        return res.status(500).json({msg: "Erro interno no servidor!"})
     }
 }
@@ -84,7 +84,8 @@ const requisicaoPegarAluno = async (req,res) => {
         if (error.message === 'Dados incompletos'){
             return res.status(400).json({msg: error.message})
         }
-        throw error
+        console.error('Erro ao pegar aluno ',error)
+        return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
 const requisicaoPegarProfessor = async (req,res) => {
@@ -92,13 +93,14 @@ const requisicaoPegarProfessor = async (req,res) => {
         const {email} = req.body
 
         const consulta = await services.pegarUsuarioProfessor(email)
-        return res.status(200).json({msg: consulta})
+        return res.status(200).json({message: consulta})
     } 
     catch (error) {
         if(error.message === 'Erro ao pegar dado'){
-            return res.status(400).json({msg: error.message})
+            return res.status(400).json({message: error.message})
         }
-        throw Error
+        console.error('Erro ao pegar professor ',error)
+        return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
 export default {requisicaoCriarAluno, requisicaoCriarProfessor,requisicaoPegarAluno,requisicaoPegarProfessor}
