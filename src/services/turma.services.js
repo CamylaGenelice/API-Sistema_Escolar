@@ -20,5 +20,25 @@ const criarTurmaS = async (nome, codigoTurma) => {
     }
     
 }
-
-export default {criarTurmaS}
+const pegarTurma = async (codigoTurma) => {
+    try {
+        const consulta = await turmaModel.pegarTurma(codigoTurma)
+        return consulta
+    } 
+    catch (error) {
+        throw new Error ('Erro ao buscar turma ')
+    }
+}
+const atualizarNomeTurma = async (nome, id) => {
+    try {
+        if(validacoesServices.validarNome(nome) == false){
+            throw new Error ('Nome invalido')
+        }
+        const consulta = await turmaModel.atualizarNomeTurma(nome,id)
+        return consulta
+    } 
+    catch (error) {
+        throw new Error('Erro ao atualizar o nome da turma')
+    }
+}
+export default {criarTurmaS,pegarTurma,atualizarNomeTurma}

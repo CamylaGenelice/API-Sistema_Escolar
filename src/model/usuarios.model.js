@@ -91,7 +91,7 @@ const atualizarEmailAluno = async(emailNovo,emailAntigo) => {
         return consulta.rows[0]
     } 
     catch (error) {
-        throw new Error('Erro ao atualizar email do aluno ',error)
+        throw new Error('Erro ao atualizar email do aluno ')
 
     }
 }
