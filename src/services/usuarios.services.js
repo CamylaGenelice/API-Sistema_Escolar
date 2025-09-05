@@ -100,4 +100,23 @@ const atualizarEmailAluno = async (emailNovo, emailAntigo) => {
         throw new Error('Erro ao atualizar email do aluno')
     }
 }
-export default {criarAlunoS, criarProfessorS,pegarUsuarioAluno,pegarUsuarioProfessor,atualizarEmailProfessor,atualizarEmailAluno}
+
+const deletarAluno = async (id) => {
+    try {
+        const consulta = await usuarioModelo.deletarAluno(id)
+        return consulta
+    }
+     catch (error) {
+        throw new Error('Erro ao deletar aluno')
+    }
+}
+const deletarProfessor = async (id) => {
+    try {
+        const consulta = await usuarioModelo.deletarProfessor(id)
+        return consulta
+    }
+     catch (error) {
+        throw new Error('Erro ao deletar professor')
+    }
+}
+export default {criarAlunoS, criarProfessorS,pegarUsuarioAluno,pegarUsuarioProfessor,atualizarEmailProfessor,atualizarEmailAluno,deletarAluno,deletarProfessor}

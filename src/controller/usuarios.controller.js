@@ -131,4 +131,34 @@ const requisicaoAtualizarEmailP = async (req, res) => {
         return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
-export default {requisicaoCriarAluno, requisicaoCriarProfessor,requisicaoPegarAluno,requisicaoPegarProfessor,requisicaoAtualizarEmailA,requisicaoAtualizarEmailP}
+const requisicaoDeletarA = async (req, res) => {
+    try {
+        const {id} = req.body
+
+        if(!id) {
+            return res.status(400).json({message: 'Dados incompletos'})
+        }
+        const consulta = await services.deletarAluno(id)
+        return res.status(200).json({message: 'Usuario deletado com sucesso'})
+    }
+     catch (error) {
+        console.error('Erro ao deletar aluno ',error)
+        return res.status(500).json({message: 'Erro interno no servidor'})
+    }
+}
+const requisicaoDeletarP = async (req, res) => {
+    try {
+        const {id} = req.body
+
+        if(!id) {
+            return res.status(400).json({message: 'Dados incompletos'})
+        }
+        const consulta = await services.deletarProfessor(id)
+        return res.status(200).json({message: 'Usuario deletado com sucesso'})
+    }
+     catch (error) {
+        console.error('Erro ao deletar professor ',error)
+        return res.status(500).json({message: 'Erro interno no servidor'})
+    }
+}
+export default {requisicaoCriarAluno, requisicaoCriarProfessor,requisicaoPegarAluno,requisicaoPegarProfessor,requisicaoAtualizarEmailA,requisicaoAtualizarEmailP,requisicaoDeletarA,requisicaoDeletarP}

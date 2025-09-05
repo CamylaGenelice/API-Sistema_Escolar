@@ -96,6 +96,24 @@ const atualizarEmailAluno = async(emailNovo,emailAntigo) => {
     }
 }
 
+const deletarAluno = async(id) => {
+    try {
+        const consulta = await banco.query('DELETE FROM aluno WHERE id = $1',[id])
+        return consulta.rows[0]
 
+    } 
+    catch (error) {
+        throw new Error ('Erro ao deletar aluno')
+    }
+}
+const deletarProfessor = async (id) => {
+    try {
+        const consulta = await banco.query('DELETE FROM professor WHERE id = $1',[id])
+        return consulta.rows[0]
+    } 
+    catch (error) {
+        throw new Error('Erro ao deletar aluno')
+    }
+}
 
-export default {criarAluno, criarProfessor,pegarAluno, pegarProfessor,atualizarEmailAluno,atualizarEmailProfessor}
+export default {criarAluno, criarProfessor,pegarAluno, pegarProfessor,atualizarEmailAluno,atualizarEmailProfessor, deletarAluno,deletarProfessor}

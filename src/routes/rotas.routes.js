@@ -21,5 +21,8 @@ router.put('/professor/:email',controllerUser.requisicaoAtualizarEmailP)
 router.put('/turma/:codigo',turmaController.requisicaoAtualizarNomeTurma)
 router.put('/disciplina/:id',disciplinaController.requisicaoAtualizarNomeDisciplina)
 
+router.delete('/aluno',controllerUser.requisicaoDeletarA)
+router.delete('/professor',controllerUser.requisicaoDeletarP)
+
 export default router
 
