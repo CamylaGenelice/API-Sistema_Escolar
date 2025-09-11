@@ -9,6 +9,7 @@ const validarEmail = (email) => {
 const validarMatricula = (matricula) => {
     const regex = /^\d+$/
     return regex.test(matricula)
+        
 }
 
 export default {validarEmail,validarNome,validarMatricula}

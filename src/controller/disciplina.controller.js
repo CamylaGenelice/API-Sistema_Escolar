@@ -1,17 +1,28 @@
-import services from "../services/disciplina.services";
+import services from "../services/disciplina.services.js";
 
 const requisicaoCriarDisciplina = async (req, res) => {
     try {
-        if(!nome || !cargaHoraria || !dia || !horaInicio || !horaFim){
+        
+        const {nome,carga_horaria,dia,hora_inicio,hora_fim} = req.body
+
+        if(!nome || !carga_horaria || !dia || !hora_inicio || !hora_fim){
+            //throw new Error('Ddd')
             return res.status(400).json({message: "Dados incompletos"})
         }
-        const {nome,cargaHoraria,dia,horaInicio,horaFim} = req.body
         
-        const consulta = await services.criarDisciplinaS(nome,cargaHoraria,dia,horaInicio,horaFim)
+        const consulta = await services.criarDisciplina(nome,carga_horaria,dia,hora_inicio,hora_fim)
         return res.status(200).json({message: "Disciplina criada com sucesso !"})
     } 
     catch (error) {
-        console.error('Erro ao criar',error)
+        
+        if(error.message === 'Nome invalido'){
+            return res.status(409).json({msg: error.message })
+        }
+        if(error.message === 'Nome da disciplina já cadastrado'){
+            return res.status(409).json({msg: error.message })
+        }
+        
+        console.log('Erro ao criar',error)
         return res.status(500).json({message: 'Erro interno no servidor'})
         
     }

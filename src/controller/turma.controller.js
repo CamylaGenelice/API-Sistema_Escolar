@@ -1,4 +1,4 @@
-import services from "../services/turma.services";
+import services from "../services/turma.services.js";
 
 const requisicaoCriarTurma = async (req,res) => {
     try {

@@ -6,17 +6,17 @@ const criarTurmaS = async (nome, codigoTurma) => {
     try {
         
         if (validacoesServices.validarNome(nome) == false){
-            console.log('Nome invalido!')
+            throw new Error('Nome invalido!')
         }
         if (validacoesServices.validarMatricula(codigoTurma) == false){
-            console.log('Entrada invalida, so é permitido a entrada de números')
+            throw new Error('Entrada invalida, so é permitido a entrada de números')
         }
         
         const turma = await turmaModel.criarTurma(nome,codigoTurma)
         return turma
     } 
     catch (error) {
-       throw  new Error ('Erro ao criar turma') 
+       throw new Error ('Erro ao criar turma') 
     }
     
 }

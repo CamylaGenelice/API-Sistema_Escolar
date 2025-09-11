@@ -7,18 +7,21 @@ const criarAlunoS = async (nome, email, senha, matricula) => {
         
         
         if(validacoesServices.validarNome(nome) == false){
-           throw error('Nome invalido') }
+           throw new Error('Nome invalido') }
 
         if (validacoesServices.validarEmail(email) == false){
-            throw error('Email invalido')}
+            throw new Error('Email invalido')}
 
         if (validacoesServices.validarMatricula(matricula) == false){
-            throw error('Matricula invalida')}
+            throw new Error('Matricula invalida')}
 
         const aluno = await usuarioModelo.criarAluno(nome,email,senha,matricula)
         return aluno
     }
      catch (error) {
+        if(error.message === 'Email já cadastrado' || error.message === 'Matricula já cadastrada' ||error.message === 'Dados já cadastrados' ){
+            throw error
+        }
         
         throw  new Error ('Erro ao criar aluno') 
     }
@@ -31,16 +34,20 @@ const criarProfessorS = async (nome,email,senha) => {
     try {
 
         if(validacoesServices.validarNome(nome) == false){
-            throw error('Nome invalido') }
+            throw new Error('Nome invalido') }
 
         if(validacoesServices.validarEmail(email) == false){
-            throw error('Email invalido') }
+            throw new Error('Email invalido') }
 
         const professor = await usuarioModelo.criarProfessor(nome,email,senha)
         return professor
     
 } 
     catch (error) {
+        if(error.message === 'Email já cadastrado' || error.message === 'Dados já cadastrados'){
+            throw error
+        }
+
         throw  new Error ('Erro ao criar professor') 
     }
     
@@ -50,13 +57,16 @@ const pegarUsuarioAluno = async (matricula) => {
     try {
        
         if(validacoesServices.validarMatricula(matricula) == false){
-           throw error('Matricula invalida')
+           throw new Error('Matricula invalida')
         }
 
         const consulta = await usuarioModelo.pegarAluno(matricula)
         return consulta
     }
     catch (error) {
+        if(error.message ==='Erro ao buscar aluno'){
+            throw error
+        }
       throw  new Error ('Erro ao buscar aluno') 
     }
 }
@@ -72,6 +82,9 @@ const pegarUsuarioProfessor = async (email) => {
 
     } 
     catch (error) {
+        if(error.message ==='Erro ao buscar professor'){
+            throw error
+        }
         throw  new Error ('Erro ao buscar professor') 
     }
 }
@@ -85,6 +98,9 @@ const atualizarEmailProfessor = async (emailNovo, emailAntigo) => {
         return consulta
     }
      catch (error) {
+        if(error.message ==='Erro ao atualizar email do professor'){
+            throw error
+        }
         throw new Error ('Erro ao atualizar email')
     }
 }
@@ -97,6 +113,9 @@ const atualizarEmailAluno = async (emailNovo, emailAntigo) => {
         return consulta
     } 
     catch (error) {
+        if(error.message ==='Erro ao atualizar email do aluno'){
+            throw error
+        }
         throw new Error('Erro ao atualizar email do aluno')
     }
 }
@@ -107,6 +126,9 @@ const deletarAluno = async (id) => {
         return consulta
     }
      catch (error) {
+        if(error.message ==='Erro ao deletar aluno'){
+            throw error
+        }
         throw new Error('Erro ao deletar aluno')
     }
 }
@@ -116,6 +138,9 @@ const deletarProfessor = async (id) => {
         return consulta
     }
      catch (error) {
+        if(error.message ==='Erro ao deletar professor'){
+            throw error
+        }
         throw new Error('Erro ao deletar professor')
     }
 }

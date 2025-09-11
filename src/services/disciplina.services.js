@@ -5,15 +5,20 @@ import validacoesServices from "./validacoes.services.js"
 const criarDisciplina = async (nome,cargaHoraria,dia,horaInicio,horaFim) => {
     try {
 
-        if(validacoesServices.validarNome(nome) == false) {
-        throw error('Nome invalido')
+        if(validacoesServices.validarNome(nome) === false) {
+            throw new Error('Nome invalido')
      }  
 
         const disciplina = await disciplinaModel.criarDisciplina(nome,cargaHoraria,dia,horaInicio,horaFim)
         return disciplina
     } 
     catch (error) {
-        throw  new Error ('Erro ao criar disciplina') 
+        
+        if (error.message === 'Nome da disciplina já cadastrado'){
+            throw error 
+        }
+        
+        throw error
     }
       
 }
@@ -26,7 +31,8 @@ const pegarDisciplina = async (nome) => {
          return consulta
     } 
     catch (error) {
-        throw new Error('Erro ao pegar disciplina')
+        if(error.message === 'Falha ao buscar disciplina')
+        throw error
     }
 } 
 const atualizarNomeDisciplina = async (nomeNovo,id) => {

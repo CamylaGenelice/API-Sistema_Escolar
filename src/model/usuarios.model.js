@@ -13,7 +13,8 @@ const criarAluno = async (nome, email, senha, matricula) => {
         return consulta.rows[0]
     }
      catch (error) {
-        
+        console.error('Erro ao criar aluno ->', error)
+
         if (error.code === '23505'){
             if (error.constraint === 'aluno_email_key'){
                 throw new Error ('Email já cadastrado')
@@ -42,6 +43,8 @@ const criarProfessor = async (nome, email, senha) => {
         return consulta.rows[0]
     } 
     catch (error) {
+        console.error('Erro ao criar professor ->', error)
+
         if (error.code === '23505'){
            
             if (error.constraint === 'professor_email_key') {
@@ -62,7 +65,8 @@ const pegarAluno = async (matricula) => {
         return consulta.rows[0] || null
     }
      catch (error) {
-        throw new Error('Erro ao pegar dado',error)
+        console.error('Erro ao buscar aluno ->', error)
+        throw new Error('Erro ao buscar aluno',error)
     }
     
 }
@@ -72,7 +76,8 @@ const pegarProfessor = async (email) => {
         return consulta.rows[0] || null
     } 
     catch (error) {
-        throw new Error('Erro ao pegar dado ',error)
+        console.error('Erro ao buscar professor ->', error)
+        throw new Error('Erro ao buscar professor ')
     }
 }
 
@@ -82,6 +87,7 @@ const atualizarEmailProfessor = async(emailNovo, emailAntigo) => {
         return consulta.rows[0]
     }
      catch (error) {
+        console.error('Erro ao atualizar email do professor ->', error)
         throw new Error('Erro ao atualizar email do professor ')
     }
 }
@@ -91,6 +97,7 @@ const atualizarEmailAluno = async(emailNovo,emailAntigo) => {
         return consulta.rows[0]
     } 
     catch (error) {
+        console.error('Erro ao atualizar email do aluno ->', error)
         throw new Error('Erro ao atualizar email do aluno ')
 
     }
@@ -103,6 +110,7 @@ const deletarAluno = async(id) => {
 
     } 
     catch (error) {
+        console.error('Erro ao deletar aluno ->', error)
         throw new Error ('Erro ao deletar aluno')
     }
 }
@@ -112,6 +120,7 @@ const deletarProfessor = async (id) => {
         return consulta.rows[0]
     } 
     catch (error) {
+        console.error('Erro ao deletar professor ->', error)
         throw new Error('Erro ao deletar aluno')
     }
 }
