@@ -13,7 +13,8 @@ const criarTurma = async (nome, codigoTurma) => {
                  throw new Error ('Codigo da turma já cadastrado')
             }
             throw new Error('Dados já cadastrados')   
-          } 
+          }
+          throw new Error('Erro ao criar turma') 
 }
    
 }
@@ -33,7 +34,7 @@ const pegarTurma = async (codigoTurma) => {
         return consulta.rows[0]
     } 
     catch (error) {
-        throw new Error ('Erro ao pegar turma')
+        throw new Error ('Erro ao buscar turma')
     }
 }
 
