@@ -70,34 +70,42 @@ const requisicaoCriarProfessor = async (req, res) => {
 }
 const requisicaoPegarAluno = async (req,res) => {
     try {
+        
         const {matricula} = req.body
+        if(!matricula){
+            return res.status(400).json({msg: "Dados incompletos"})
+        }
 
         const consulta = await services.pegarUsuarioAluno(matricula)
         return res.status(200).json({msg: consulta})
     } 
     catch (error) {
-        if(error.message === 'Erro ao pegar dado'){
-            return res.status(400).json({msg: error.message})
-        }
-        if (error.message === 'Dados incompletos'){
-            return res.status(400).json({msg: error.message})
-        }
         console.error('Erro ao pegar aluno ',error)
+        if(error.message === 'Matricula invalida'){
+             return res.status(409).json({msg: error.message})
+        }
+        if(error.message === 'Erro ao buscar aluno'){
+            return res.status(400).json({msg: error.message})
+        }
+        
         return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
 const requisicaoPegarProfessor = async (req,res) => {
     try {
         const {email} = req.body
-
+        if(!email){
+            return res.status(400).json({msg: "Dados incompletos"})
+        }
         const consulta = await services.pegarUsuarioProfessor(email)
         return res.status(200).json({message: consulta})
     } 
     catch (error) {
-        if(error.message === 'Erro ao pegar dado'){
+        console.error('Erro ao pegar professor ',error)
+        if(error.message === 'Erro ao buscar professor'){
             return res.status(400).json({message: error.message})
         }
-        console.error('Erro ao pegar professor ',error)
+        
         return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
@@ -113,6 +121,9 @@ const requisicaoAtualizarEmailA = async (req, res) => {
     }
      catch (error) {
         console.error('Erro ao atualizar email ',error)
+        if(error.message === 'Erro atualizar email do aluno'){
+            return res.status(400).json({ message: error.message})
+        }
         return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
@@ -128,6 +139,9 @@ const requisicaoAtualizarEmailP = async (req, res) => {
     }
      catch (error) {
         console.error('Erro ao atualizar email do professor',error)
+        if(error.message === 'Erro atualizar email do professor'){
+            return res.status(400).json({ message: error.message})
+        }
         return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
@@ -143,6 +157,9 @@ const requisicaoDeletarA = async (req, res) => {
     }
      catch (error) {
         console.error('Erro ao deletar aluno ',error)
+        if(error.message === 'Erro ao deletar aluno'){
+            return res.status(400).json({ message: error.message})
+        }
         return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
@@ -158,7 +175,11 @@ const requisicaoDeletarP = async (req, res) => {
     }
      catch (error) {
         console.error('Erro ao deletar professor ',error)
+        if(error.message === 'Erro ao deletar professor'){
+            return res.status(400).json({ message: error.message})
+        }
         return res.status(500).json({message: 'Erro interno no servidor'})
     }
 }
+
 export default {requisicaoCriarAluno, requisicaoCriarProfessor,requisicaoPegarAluno,requisicaoPegarProfessor,requisicaoAtualizarEmailA,requisicaoAtualizarEmailP,requisicaoDeletarA,requisicaoDeletarP}
