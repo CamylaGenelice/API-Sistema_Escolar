@@ -1,0 +1,1 @@
+As melhorias estão sendo implementadas aos poucos 
