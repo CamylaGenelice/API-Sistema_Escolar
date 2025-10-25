@@ -1,25 +1,38 @@
-##Sistema de Gestão Escolar
+Sistema de Gestão Escolar
+-
+## 🏫 Descrição<br>
+Sistema simples para gestão escolar que permite o gerenciamento de:
 
-###🏫 Descrição<br>
-####Sistema simples para gestão escolar que permite o gerenciamento de:
+* Professores, alunos, matrículas e turmas
+* Disciplinas e grades horárias
 
- *Professores, alunos, matrículas e turmas <br>
- *Disciplinas e grades horárias <br>
- 
- ###⚡ Funcionalidades<br>
+### ⚡Funcionalidades
 
-  **👥 Gestão de Pessoas**<br>
-   *Cadastro de alunos e professores<br>
-  **🏷️ Gestão Acadêmica**<br>
-   *Criação e gerenciamento de turmas<br>  
-   *Vinculação de disciplinas às turmas<br>  
-   *Controle de horários e salas<br>  
-   *Matrícula de alunos em turmas<br>
+1. **👥 Gestão de Pessoas**<br>
 
-   ###🛠 Tecnologias<br>
-   **Backend**
-   *Node.js | Express.js | PostgreSQL | JWT
-   **Frontend**
-   *Vue.js | HTML/CSS/JavaScript
+   * Cadastro de alunos e professores<br>
+
+
+
+2. **🏷️ Gestao Academica**
+
+
+
+   * Criação e gerenciamento de turmas
+
+   * Vinculação de disciplinas às turmas
+
+   * Controle de horários e salas
+
+   * Matrícula de alunos em turmas
+
+
+### 🛠 Tecnologias<br>
+
+**Backend** <br>
+* Node.js | Express.js | PostgreSQL | JWT <br>
+
+**Frontend**<br>
+ * Vue.js | HTML/CSS/JavaScript
    
   
